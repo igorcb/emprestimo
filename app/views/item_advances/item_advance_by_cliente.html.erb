@@ -1,0 +1,30 @@
+<div>
+<h3>Dados da Baixa</h3>
+
+  <%= form_tag url_for(:controller => 'item_advances', :action => 'update'), :method => 'put' do %>
+    
+    <% if @item_advance.size > 0 %>
+        <%= hidden_field_tag 'parcela_id', "#{@item_advance[0].id}" %>
+		<strong>Dt Empres: </strong> <%= @item_advance[0].advance.data.to_s %> <br />
+		<strong>Parcela: </strong> <%= @item_advance[0].parcela %> <br />
+		<strong>Valor:</strong> <%= @item_advance[0].valor.to_f %> <br />
+		<strong>Devedor:</strong> <%= @item_advance[0].advance.saldo.to_f %> <br />
+		<strong>Atraso:</strong> <%= @item_advance[0].atraso.to_f %> <br />
+		<strong>Diferença:</strong> <%= @item_advance[0].diferenca.to_f %> <br />
+
+		<div>
+		  <strong>Valor Pago:</strong>
+		  <%= number_field_tag :valor_pago, nil %>
+		</div>
+
+		<div>
+		 <%= submit_tag "Baixar" %>
+		</div>
+	<% else %>
+	   <div>
+	   	<strong>Não existe parcela para este cliente na data <%= Date.today.to_s %> </strong>
+	   </div>
+	<% end %>
+  <% end %>
+
+</div>

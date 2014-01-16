@@ -1,0 +1,33 @@
+<div>
+  <%= link_to "Sair", signout_path, method: "delete" %>  
+</div>  
+
+<hr>
+
+<div id='select_client'>
+  <strong>Informe um cliente</strong> <br />
+  <%= collection_select(nil, :cliente_id, @clientes, :id, :nome, {:prompt => 'Selecione o Cliente'}) %>
+</div>
+
+<div id='baixa_item_advance'>
+  
+</div>
+
+<script type="text/javascript">
+
+jQuery(function($) {
+  // when the #country field changes
+  $("#_cliente_id").change(function() {
+    // make a POST call and replace the content
+    var conta = $('select#_cliente_id :selected').val();
+    if(conta == "") conta="0";
+    jQuery.get('/item_advance_by_cliente/' + conta, function(data){
+        $("#baixa_item_advance").html(data);
+    })
+    return false;
+  });
+
+})
+
+
+</script>
