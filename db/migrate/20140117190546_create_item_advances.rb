@@ -15,5 +15,8 @@ class CreateItemAdvances < ActiveRecord::Migration
       t.timestamps
     end
     add_index :item_advances, [:empresa_id, :uuid], unique: true
+    execute <<-SQL
+      ALTER TABLE ITEM_ADVANCES ADD CONSTRAINT FK_ITEM_ADVANCES_ADVANCE_ID FOREIGN KEY (ADVANCE_ID) REFERENCES ADVANCES (ID)
+    SQL
   end
 end
