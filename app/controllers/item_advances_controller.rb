@@ -5,7 +5,8 @@ class ItemAdvancesController < ApplicationController
 
   def index
 	#@clientes = current_user.empresa_id.nil? ? Cliente.where(empresa_id: -1) : Cliente.where(empresa_id: current_user.empresa_id).order(:nome)
-	@clientes = current_user.empresa_id.nil? ? Cliente.where(empresa_id: -1) : Cliente.where(empresa_id: current_user.empresa_id, cidade: current_user.cidade.nome).order(:nome)
+    advances = Advance.all
+	  @clientes = current_user.empresa_id.nil? ? Cliente.where(empresa_id: -1) : Cliente.where('id in (?) and empresa_id = ? and cidade = ?', advances.ids, current_user.empresa_id, current_user.cidade.nome)
   end
 
   def item_advance_by_cliente
