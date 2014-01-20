@@ -21,7 +21,9 @@ class ItemAdvancesController < ApplicationController
     respond_to do |format|
       #if @item_advance.update_attributes(data_pagamento: Date.today.to_s, valor_pago: params[:valor_pago])
       if @item_advance.update_attributes(data_pagamento: '2014-01-10', valor_pago: params[:valor_pago])
-        format.html { redirect_to item_advances_path, notice: 'ItemAdvance was successfully updated.' }
+        flash[:success] = "Parcela foi atualizada com sucesso."
+        #format.html { redirect_to item_advances_path, notice: 'ItemAdvance was successfully updated.' }
+        format.html { redirect_to item_advances_path }
       else
         format.html { render action: 'edit' }
       end

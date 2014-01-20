@@ -6,7 +6,7 @@
 
 <div id='select_client'>
   <strong>Informe um cliente</strong> <br />
-  <%= collection_select(nil, :cliente_id, @clientes, :id, :nome, {:prompt => 'Selecione o Cliente'}) %>
+  <%= collection_select(nil, :cliente_id, @clientes, :id, :nome, {:prompt => 'Selecione o Cliente'}, class: "form-control") %>
 </div>
 
 <div id='baixa_item_advance'>

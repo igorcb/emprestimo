@@ -1,7 +1,7 @@
 <div>
 <h3>Dados da Baixa</h3>
 
-  <%= form_tag url_for(:controller => 'item_advances', :action => 'update'), :method => 'put' do %>
+  <%= form_tag url_for(:controller => 'item_advances', :action => 'update', html: {class:"form-signin", role: "form"}), :method => 'put' do %>
     
     <% if @item_advance.size > 0 %>
         <%= hidden_field_tag 'parcela_id', "#{@item_advance[0].id}" %>
@@ -14,11 +14,11 @@
 
 		<div>
 		  <strong>Valor Pago:</strong>
-		  <%= number_field_tag :valor_pago, nil %>
+		  <%= number_field_tag :valor_pago, nil, class: "form-control" %>
 		</div>
 
 		<div>
-		 <%= submit_tag "Baixar" %>
+		 <%= submit_tag "Baixar", class: "btn btn-primary" %>
 		</div>
 	<% else %>
 	   <div>
