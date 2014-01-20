@@ -1,18 +1,12 @@
-<h1>Entrar no Sistema</h1>
 
-<div class="row">
-  <div class="span6 offset3">
-    <%= form_for(:session, url: sessions_path) do |f| %>
+<%= form_for(:session, url: sessions_path, html: {class:"form-signin", role: "form"}) do |f| %>
+ <h2>Entrar no Sistema</h2>
 
-      <%= f.label :login, "Nome" %>
-      <%= f.text_field :login %>
+  <%= f.text_field :login, size: 20, class: "form-control", placeholder: "Login",required: true, autofocus: true %> <br />
+  <%= f.password_field :password, class: "form-control", placeholder: "Senha", required: true %>
+  <br />
+  <%= f.submit "Entrar", class: "btn btn-primary" %>
+  
+<% end %>
 
-      <%= f.label :password, "Senha" %>
-      <%= f.password_field :password %>
 
-      <%= f.submit "Entrar", class: "btn btn-large btn-primary" %>
-    <% end %>
-
-    
-  </div>
-</div>
