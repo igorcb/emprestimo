@@ -14,26 +14,38 @@ class Api::ItemAdvancesController < ApiController
   end
 
   def create
-    @item_advance = ItemAdvance.new(params[:item_advance])
-    advance = Advance.find_by_empresa_id_and_uuid(params[:item_advance][:empresa_id],params[:item_advance][:advance_id])
-    @item_advance.advance_id = advance.id
-    @item_advance.status = 'A'
+    begin
+      @item_advance = ItemAdvance.new(params[:item_advance])
+      empresa_id = params[:item_advance][:empresa_id]
+      advance_id = params[:item_advance][:advance_id]
+      advance = Advance.find_by_empresa_id_and_uuid(params[:item_advance][:empresa_id],params[:item_advance][:advance_id])
+      @item_advance.advance_id = advance.id
+      @item_advance.status = 'A'
 
-    if @item_advance.save
-      render notice: 'ItemAdvance was successfully created.'
-    else
-      @errors = { :errors => @item_advance.errors.each {|m| m.to_s} }
+      if @item_advance.save
+        render notice: 'ItemAdvance was successfully created.'
+      else
+        @errors = { :errors => @item_advance.errors.each {|m| m.to_s} }
+        render json: @errors.to_json, :status => 200
+      end
+    rescue Exception => e
+      @errors = { :errors => "create, record empresa: #{ empresa_id } and advance: #{advance_id} not found" }
       render json: @errors.to_json, :status => 200
     end
   end  
 
   def update
+    begin
     @item_advance = ItemAdvance.find_by_empresa_id_and_uuid(params[:item_advance][:empresa_id],params[:item_advance][:uuid])
     if @item_advance.update_attributes(params[:item_advance])
       render(notice: 'item_advance was successfully updated.');
     else
       @errors = { :errors => @item_advance.errors.each {|m| m.to_s} }
       render json: @errors.to_json, status: 200
+    end
+    rescue Exception => e
+      @errors = { :errors => 'update, record not found' }
+      render json: @errors.to_json, :status => 200
     end
 
   end  
