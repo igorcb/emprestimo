@@ -12,25 +12,37 @@ class Api::AdvancesController < ApiController
   end
 
   def create
-    @advance = Advance.new(params[:advance])
-    cliente = Cliente.find_by_empresa_id_and_uuid(params[:advance][:empresa_id],params[:advance][:cliente_id])
-    @advance.cliente_id = cliente.id
-
-    if @advance.save
-      render notice: 'Advance was successfully created.'
-    else
-      @errors = { :errors => @advance.errors.each {|m| m.to_s} }
+    begin
+      @advance = Advance.new(params[:advance])
+      empresa_id = params[:advance][:empresa_id]
+      cliente_id = params[:advance][:cliente_id]
+      cliente = Cliente.find_by_empresa_id_and_uuid(params[:advance][:empresa_id],params[:advance][:cliente_id])
+      @advance.cliente_id = cliente.id
+      if @advance.save
+        render notice: 'Advance was successfully created.'
+      else
+        @errors = { :errors => @advance.errors.each {|m| m.to_s} }
+        render json: @errors.to_json, :status => 200
+      end
+    rescue Exception => e
+      @errors = { :errors => "create, record empresa: #{ empresa_id } and cliente: #{cliente_id} not found" }
       render json: @errors.to_json, :status => 200
-    end
+    end 
+
   end  
 
   def update
     ##@advance = Advance.find(params[:id])
-    @advance = Advance.find_by_empresa_id_and_uuid(params[:advance][:empresa_id],params[:advance][:uuid])
-    if @advance.update_attributes(params[:advance])
-      render notice: 'Advance was successfully updated.'
-    else
-      @errors = { :errors => @advance.errors.each {|m| m.to_s} }
+    begin
+      @advance = Advance.find_by_empresa_id_and_uuid(params[:advance][:empresa_id],params[:advance][:uuid])
+      if @advance.update_attributes(params[:advance])
+        render notice: 'Advance was successfully updated.'
+      else
+        @errors = { :errors => @advance.errors.each {|m| m.to_s} }
+        render json: @errors.to_json, :status => 200
+      end
+    rescue Exception => e
+      @errors = { :errors => 'update, record not found' }
       render json: @errors.to_json, :status => 200
     end
   end
