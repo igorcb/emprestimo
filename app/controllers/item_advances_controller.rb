@@ -14,7 +14,12 @@ class ItemAdvancesController < ApplicationController
       format.html { render :layout => !request.xhr? }
     end
   end
+
   def update
+    if params[:valor_pago].blank?
+      redirect_to item_advances_path, :flash => { :danger => "Informe o valor da parcela" } 
+      return
+    end 
     @item_advance = ItemAdvance.find(params[:parcela_id])
     respond_to do |format|
       if @item_advance.update_attributes(data_pagamento: Date.today.to_s, valor_pago: params[:valor_pago])
