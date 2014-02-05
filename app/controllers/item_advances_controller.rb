@@ -8,6 +8,7 @@ class ItemAdvancesController < ApplicationController
   end
 
   def item_advance_by_cliente
+    @cliente = Cliente.find(params[:id])
   	@item_advance = ItemAdvance.joins(:cliente).where("DATE(data_vencimento) = ? and clientes.id = ?", Date.today.to_s, params[:id])
   	#@item_advance = ItemAdvance.joins(:cliente).where("DATE(data_vencimento) = ? and clientes.id = ?", '2014-01-13', params[:id])
     respond_with(@item_advance) do |format|
