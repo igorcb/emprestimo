@@ -8,7 +8,12 @@ class User < ActiveRecord::Base
   #validates :cidade_id, presence: true
   before_create :create_remember_token
 
-  
+  module Nivel
+    ADMIN = 0
+    SUPERVISOR = 1
+    COBRADOR = 2
+  end
+
   def User.new_remember_token
     SecureRandom.urlsafe_base64
   end
