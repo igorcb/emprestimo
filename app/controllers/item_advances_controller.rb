@@ -36,7 +36,8 @@ class ItemAdvancesController < ApplicationController
 
   private
     def signed_in_user
-      redirect_to signin_url, notice: "Por favor efetuar o login." unless signed_in?
+      #redirect_to signin_url, warning: "Por favor efetuar o login." unless signed_in?
+      redirect_to signin_url, flash: { warning: "Por favor efetuar o login." } unless signed_in?
     end
 
 end
