@@ -9,8 +9,9 @@ class SessionsController < ApplicationController
       sign_in user
       redirect_to item_advances_path
     else
-      flash.now[:error] = 'Nome ou senha invalido' # Not quite right!
-      render 'new'
+      #flash.now[:danger] = 'Nome ou senha invalido' # Not quite right!
+      #render controller: 'sessions', action: 'new'
+      redirect_to root_url, flash: { :danger => "Nome ou senha invalido" } 
     end
   end
 
