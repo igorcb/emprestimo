@@ -25,7 +25,8 @@
       <% if signed_in? %>
         <div id="navbarCollapse" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><%= link_to "Baixar Parcela", item_advances_path %></li>
+            <li><%= link_to "Cobrança Diária", item_advances_path %></li>
+            <li><%= link_to "Baixar Parcela", select_client_path %></li>
             <li><%= link_to "Sair", signout_path, method: "delete" %> </li>
           </ul>
           <!--             
