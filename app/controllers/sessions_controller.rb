@@ -7,7 +7,11 @@ class SessionsController < ApplicationController
   	user = User.find_by(login: params[:session][:login].downcase)
     if user && user.authenticate(params[:session][:password])
       sign_in user
-      redirect_to item_advances_path
+      if User::Nivel::SUPERVISOR 
+        redirect_to summary_city_path
+      else
+        redirect_to item_advances_path
+      end
     else
       #flash.now[:danger] = 'Nome ou senha invalido' # Not quite right!
       #render controller: 'sessions', action: 'new'

@@ -4,7 +4,7 @@ Emprestimo::Application.routes.draw do
   
   match '/item_advance_by_cliente/:id', :controller=>'item_advances', :action => 'item_advance_by_cliente', via: [:get]
   match '/select_client/', :controller=>'item_advances', :action => 'select_client', via: [:get]
-  match '/overview_city/', :controller=>'item_advances', :action => 'overview_city', via: [:get]
+  match '/summary_city/', :controller=>'item_advances', :action => 'summary_city', via: [:get]
     namespace "api" do
 
     resources :cidades

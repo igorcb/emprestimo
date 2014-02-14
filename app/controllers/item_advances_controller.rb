@@ -8,7 +8,7 @@ class ItemAdvancesController < ApplicationController
     @item_advances = ItemAdvance.joins(:cliente).where("DATE(data_vencimento) = ? and clientes.cidade = ?", Date.today.to_s, current_user.cidade.nome).order('advances.data')    
   end
 
-  def overview_city
+  def summary_city
     @item_advances = ItemAdvance.joins(:cliente).select("clientes.cidade as cidade, sum(item_advances.valor) as valor, sum(item_advances.valor_pago) as valor_pago").where("DATE(data_vencimento) = ? and advances.empresa_id = ?", Date.today.to_s, current_user.empresa_id).group("clientes.cidade").order('clientes.cidade')
   end
  
