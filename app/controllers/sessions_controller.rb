@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   	user = User.find_by(login: params[:session][:login].downcase)
     if user && user.authenticate(params[:session][:password])
       sign_in user
-      if User::Nivel::SUPERVISOR 
+      if user.nivel == User::Nivel::SUPERVISOR 
         redirect_to summary_city_path
       else
         redirect_to item_advances_path

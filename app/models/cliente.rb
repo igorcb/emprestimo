@@ -8,5 +8,9 @@ class Cliente < ActiveRecord::Base
 
    scope :cidade, -> cidade { where(cidade: cidade) }
    scope :empresa, -> empresa { where(empresa_id: empresa) }
+
+   scope :cidades, -> empresa { select('cidade as id, cidade').uniq('cidade').where(empresa_id: empresa).order('cidade') }
+   
+   #scope :unique_title, select("id, title").group("title")
    
 end
