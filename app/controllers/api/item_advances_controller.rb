@@ -57,4 +57,17 @@ class Api::ItemAdvancesController < ApiController
       format.json { render json: @item_advances }
     end
   end
+
+  def destroy
+    begin
+      @item_advance = ItemAdvance.find_by_empresa_id_and_uuid(params[:empresa_id],params[:id])
+      @item_advance.destroy
+      @notice = { notice: "item_advance was successfully deleted" }
+      render json: @notice.to_json, status:200
+    rescue Exception => e
+      @errors = { :errors => "unable to delete the item_advance"}
+      render json: @errors.to_json, status: 200
+    end
+  end
+
 end

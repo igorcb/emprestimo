@@ -15,6 +15,7 @@ Emprestimo::Application.routes.draw do
     resources :item_advances
     resources :empresas do
       resources :advances, only: [:destroy]
+      resources :item_advances, only: [:destroy]
     end
     post "cidades_uuid" => "cidades#cidades_uuid", :as => "cidades_uuid",  via: [:post]
     post "clientes_uuid" => "clientes#clientes_uuid", :as => "clientes_uuid",  via: [:post]
