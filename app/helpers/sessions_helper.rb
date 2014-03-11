@@ -25,4 +25,9 @@ module SessionsHelper
     self.current_user = nil
   end  
 
+  def signed_in_user
+    #redirect_to signin_url, warning: "Por favor efetuar o login." unless signed_in?
+    redirect_to signin_url, flash: { warning: "Por favor efetuar o login." } unless signed_in?
+  end   
+
 end

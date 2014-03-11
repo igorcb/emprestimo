@@ -1,0 +1,25 @@
+
+<table class="table">
+	<thead>
+		<th>ID</th>
+		<th>Data</th>
+		<th>Cliente</th>
+		<th>Cidade</th>
+		<th>Valor</th>
+		<th>Saldo</th>
+	</thead>
+	
+	<tbody>
+		<% @advances.each do |advance| %>
+		<tr>
+			<td><%= link_to advance.id, advance_path(advance.id) %></td>
+			<td><%= link_to advance.data.to_s, advance_path(advance.id) %></td>
+			<td><%= link_to advance.cliente.nome, advance_path(advance.id) %></td>
+			<td><%= advance.cliente.cidade %></td>
+			<td><%= advance.valor.to_f %></td>
+			<td><%= advance.saldo.to_f %></td>
+		</tr>
+		<% end %>
+	</tbody>
+
+</table>

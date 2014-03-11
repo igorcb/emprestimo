@@ -1,0 +1,29 @@
+<h3>Acompanhamento</h3>
+
+<div id='select_city'>
+  <%= collection_select(nil, :cidade_id, @cidades, :id, :cidade, {:prompt => 'Selecione a cidade'}, class: "form-control") %>
+</div> 
+
+<div id='advances_all'>
+  
+</div>
+
+
+<script type="text/javascript">
+
+jQuery(function($) {
+  // when the #country field changes
+  $("#_cidade_id").change(function() {
+    // make a POST call and replace the content
+    var conta = $('select#_cidade_id :selected').val();
+    if(conta == "") conta="0";
+    jQuery.get('/advance_by_city/' + conta, function(data){
+        $("#advances_all").html(data);
+    })
+    return false;
+  });
+
+})
+
+
+</script>

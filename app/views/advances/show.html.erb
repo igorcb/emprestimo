@@ -1,0 +1,34 @@
+<h4>Rota: <%= @advance.cliente.cidade %></h4>
+<h4>Cliente: <%= @advance.cliente.nome %></h4>
+<strong>Dt.Emp:</strong> <%= @advance.data.to_s %>
+<strong>Valor:</strong> <%= @advance.valor.to_f %>
+<strong>Saldo:</strong> <%= @advance.saldo.to_f %>
+<strong>Qtd.Parcelas:</strong> <%= @advance.item_advances.size %>
+
+<div>
+  <table class="table">
+
+  	<thead>
+  		<th>Parcela</th>
+  		<th>Vencimento</th>
+  		<th>Valor</th>
+  		<th>Dt.Pgto</th>
+  		<th>Valor Pago</th>
+  		<th>Atraso</th>
+  	</thead> 	
+    <tbody>
+    	<% @advance.item_advances.order('data_vencimento').each do |item| %>
+    	<tr>
+    		<td><%= item.parcela %></td>
+    		<td><%= item.data_vencimento.to_s %></td>
+    		<td><%= item.valor.to_f %></td>
+    		<td><%= item.data_pagamento if !item.data_pagamento.nil? %> </td>
+    		<td><%= item.valor_pago.to_f if !item.valor_pago.nil? %></td>
+    		<td><%= item.atraso %></td>
+    	</tr>
+    	<% end %>
+    </tbody>
+  </table>	
+	
+</div>
+
