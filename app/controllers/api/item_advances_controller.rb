@@ -60,7 +60,7 @@ class Api::ItemAdvancesController < ApiController
 
   def destroy
     begin
-      @item_advance = ItemAdvance.find_by_empresa_id_and_uuid(params[:empresa_id],params[:id])
+      @item_advance = ItemAdvanceifcon.find_by_empresa_id_and_uuid(params[:empresa_id],params[:id])
       @item_advance.destroy
       @notice = { notice: "item_advance was successfully deleted" }
       render json: @notice.to_json, status:200
