@@ -35,6 +35,10 @@ class ItemAdvancesController < ApplicationController
     end
   end
 
+  def edit
+    @item_advance = ItemAdvance.find(params[:id])
+  end
+
   def update
     if params[:valor_pago].blank?
       redirect_to select_client_path, :flash => { :danger => "Informe o valor da parcela" } 

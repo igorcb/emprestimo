@@ -1,6 +1,6 @@
 Emprestimo::Application.routes.draw do
   resources :sessions
-  resources :item_advances, only: [:index, :update]
+  resources :item_advances#, only: [:index, :edit, :update]
   resources :advances
   
   match '/item_advance_by_cliente/:id', :controller=>'item_advances', :action => 'item_advance_by_cliente', via: [:get]
