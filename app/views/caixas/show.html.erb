@@ -1,0 +1,51 @@
+<h4>Caixa: <%= @caixa.descricao %></h4>
+<p>
+  <strong>Data Abertura:</strong> 
+  <%= @caixa.data_abertura.to_s %>
+</p>
+
+<p>
+  <strong>Hora Abertura:</strong> 
+  <%= @caixa.hora_abertura.strftime('%H:%M:%S') %>
+</p>
+
+<p>
+  <strong>Data Fechamento:</strong> 
+  <%= @caixa.data_fechamento.to_s %>
+</p>
+
+<p>
+  <strong>Hora Fechamento:</strong> 
+  <%= @caixa.hora_fechamento.strftime('%H:%M:%S') if !@caixa.hora_fechamento.nil? %>
+</p>
+
+<p>
+  <strong>Valor:</strong> 
+  <%= @caixa.valor.to_f %>
+</p>
+
+<% if @caixa.lancamento_caixas.size > 0 %>
+  <h4>Lancamentos do Caixa</h4>
+	<table class="table">
+		<thead>
+			<th>ID</th>
+			<th>Data</th>
+			<th>Credito</th>
+			<th>Debito</th>
+			<th>Descricao</th>
+		</thead>
+		
+		<tbody>
+			<% @caixa.lancamento_caixas.each do |lancamento| %>
+			<tr>
+				<td width="10%"><%= lancamento.id %></td>
+				<td width="10%"><%= lancamento.data.to_s %></td>
+				<td width="10%"><%= lancamento.credito.to_f %></td>
+				<td width="10%"><%= lancamento.debito.to_f %></td>
+				<td width="60%"><%= lancamento.descricao %></td>
+			</tr>
+			<% end %>
+		</tbody>
+
+	</table>  
+<% end %>

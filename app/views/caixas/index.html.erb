@@ -1,0 +1,30 @@
+<h1>Listagem dos Caixas</h1>
+
+<table class="table">
+	<thead>
+		<th>ID</th>
+		<th>Caixa</th>
+		<th>Data Abertura</th>
+		<th>Hora Abertura</th>
+		<th>Data Fechamento</th>
+		<th>Hora Fechamento</th>
+		<th>Saldo</th>
+		<th>Status</th>
+	</thead>
+	
+	<tbody>
+		<% @caixas.each do |caixa| %>
+		<tr>
+			<td><%= link_to caixa.id, caixa_path(caixa.id) %></td>
+			<td><%= link_to caixa.descricao, caixa_path(caixa.id) %></td>
+			<td><%= link_to caixa.data_abertura.to_s, caixa_path(caixa.id) %></td>
+			<td><%= link_to caixa.hora_abertura.strftime('%H:%M:%S'), caixa_path(caixa.id) %></td>
+			<td><%= caixa.data_fechamento.to_s if !caixa.data_fechamento.nil? %></td>
+			<td><%= caixa.hora_fechamento.strftime('%H:%M:%S') if !caixa.hora_fechamento.nil? %></td>
+			<td><%= caixa.valor.to_f %></td>
+			<td><%= caixa.status_nome %></td>
+		</tr>
+		<% end %>
+	</tbody>
+
+</table>
