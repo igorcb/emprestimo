@@ -6,6 +6,8 @@ Emprestimo::Application.routes.draw do
   
   match '/item_advance_by_cliente/:id', :controller=>'item_advances', :action => 'item_advance_by_cliente', via: [:get]
   match '/item_advance_by_city/:id', :controller=>'item_advances', :action => 'item_advance_by_city', via: [:get]
+  match '/cobranca_diaria_by_city/:id', :controller=>'item_advances', :action => 'cobranca_diaria_by_city', via: [:get]
+  
   match '/advance_by_city/:id', :controller=>'advances', :action => 'advance_by_city', via: [:get]
   match '/select_client/', :controller=>'item_advances', :action => 'select_client', via: [:get]
   match '/summary_city/', :controller=>'item_advances', :action => 'summary_city', via: [:get]

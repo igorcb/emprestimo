@@ -5,7 +5,7 @@ class ItemAdvancesController < ApplicationController
 
   def index
 	  #@clientes = current_user.empresa_id.nil? ? Cliente.where(empresa_id: -1) : Cliente.where('empresa_id = ? and cidade = ?', current_user.empresa_id, current_user.cidade.nome)
-    @item_advances = ItemAdvance.joins(:cliente).where("DATE(data_vencimento) = ? and clientes.cidade = ?", Date.today.to_s, current_user.cidade.nome).order('advances.data')    
+    @item_advances = ItemAdvance.joins(:cliente).where("DATE(data_vencimento) = ? and clientes.cidade = ?", Date.today.to_s, current_user.cidade.nome).order('advances.data, advances.uuid')    
   end
 
   def select_city
@@ -29,10 +29,14 @@ class ItemAdvancesController < ApplicationController
   end
 
   def item_advance_by_city
-    @item_advances = ItemAdvance.joins(:cliente).where("DATE(data_vencimento) = ? and clientes.cidade = ?", Date.today.to_s, params[:id])
+    @item_advances = ItemAdvance.joins(:advance, :cliente).where("DATE(data_vencimento) = ? and clientes.cidade = ?", Date.today.to_s, params[:id]).order('advances.data, advances.uuid')
     respond_with(@item_advances) do |format|
       format.html { render :layout => !request.xhr? }
     end
+  end
+
+  def cobranca_diaria_by_city
+    item_advance_by_city
   end
 
   def edit

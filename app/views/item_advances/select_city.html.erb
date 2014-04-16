@@ -16,9 +16,13 @@ jQuery(function($) {
     // make a POST call and replace the content
     var conta = $('select#_cidade_id :selected').val();
     if(conta == "") conta="0";
-    jQuery.get('/item_advance_by_city/' + conta, function(data){
+  //  jQuery.get('/item_advance_by_city/' + conta, function(data){
+  //      $("#cobranca_diaria").html(data);
+  //  })
+    jQuery.get('/cobranca_diaria_by_city/' + conta, function(data){
         $("#cobranca_diaria").html(data);
     })
+
     return false;
   });
 
