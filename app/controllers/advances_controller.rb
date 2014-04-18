@@ -6,11 +6,16 @@ class AdvancesController < ApplicationController
   def index
   	@cidades = Cliente.cidades(current_user.empresa_id)
   	#@cidades = Cliente.cidades(current_user.empresa_id)
-  	@advances = Advance.where(empresa_id: current_user.empresa_id).order('data')
+  	#@advances = Advance.where(empresa_id: current_user.empresa_id).order('data')
   end
 
   def advance_by_city
-    @advances = Advance.joins(:cliente).where("clientes.cidade = ?", params[:id])
+    case current_user.empresa_id
+      when 1 then order = "advances.data"
+      when 2 then order = "clientes.nome"
+    end
+
+    @advances = Advance.includes(:cliente).where("advances.empresa_id = ? and clientes.cidade = ?", current_user.empresa_id, params[:id]).references(:cliente).order(order)
     respond_with(@advances) do |format|
       format.html { render :layout => !request.xhr? }
     end
