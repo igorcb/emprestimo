@@ -1,0 +1,31 @@
+<h3>Cobranca Diaria <%= Time.now.to_date.to_s %></h3>
+<h4>Total Pago: <%= @item_advances.sum('valor_pago').to_f %></h4>
+
+<table class="table">
+	<thead>
+		<th>Dt. Emp</th>
+		<th>Cliente</th>
+		<th>Parcela</th>
+		<th>Vr.Parcela</th>
+		<th>Vr.Pago</th>
+		<th>Dev</th>
+		<th>Atraso</th>
+		<th>Dif</th>
+	</thead>
+	
+	<tbody>
+		<% @item_advances.each do |item| %>
+		<tr>
+			<td><%= item.advance.data.to_s %></td>
+			<td><%= item.cliente.nome %></td>
+			<td><%= item.parcela %></td>
+			<td><%= item.valor.to_f %></td>
+			<td><%= item.valor_pago.to_f %></td>
+			<td><%= item.advance.saldo %></td>
+			<td><%= item.atraso %></td>
+			<td><%= item.diferenca %></td>
+		</tr>
+		<% end %>
+	</tbody>
+
+</table>
