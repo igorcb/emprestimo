@@ -10,12 +10,7 @@ class AdvancesController < ApplicationController
   end
 
   def advance_by_city
-    case current_user.empresa_id
-      when 1 then order = "advances.data"
-      when 2 then order = "clientes.nome"
-    end
-
-    @advances = Advance.includes(:cliente).where("advances.empresa_id = ? and clientes.cidade = ?", current_user.empresa_id, params[:id]).references(:cliente).order(order)
+    @advances = Advance.includes(:cliente).where("advances.empresa_id = ? and clientes.cidade = ?", current_user.empresa_id, params[:id]).references(:cliente).order(order_by(current_user.empresa_id))
     respond_with(@advances) do |format|
       format.html { render :layout => !request.xhr? }
     end

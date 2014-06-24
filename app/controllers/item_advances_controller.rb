@@ -5,11 +5,7 @@ class ItemAdvancesController < ApplicationController
 
   def index
 	  #@clientes = current_user.empresa_id.nil? ? Cliente.where(empresa_id: -1) : Cliente.where('empresa_id = ? and cidade = ?', current_user.empresa_id, current_user.cidade.nome)
-    case current_user.empresa_id
-      when 1 then order = 'advances.data'    
-      when 2 then order = 'cliente.nome'
-    end
-    @item_advances = ItemAdvance.includes(:cliente).where("item_advances.empresa_id = ? and DATE(item_advances.data_vencimento) = ? and clientes.cidade = ?", current_user.empresa_id, Date.today.to_s, current_user.cidade.nome).order(order)    
+    @item_advances = ItemAdvance.includes(:cliente).where("item_advances.empresa_id = ? and DATE(item_advances.data_vencimento) = ? and clientes.cidade = ?", current_user.empresa_id, Date.today.to_s, current_user.cidade.nome).order(order_by(current_user.empresa_id))    
   end
 
   def select_city
@@ -33,7 +29,8 @@ class ItemAdvancesController < ApplicationController
   end
 
   def item_advance_by_city
-    @item_advances = ItemAdvance.includes(:advance, :cliente).where("item_advances.empresa_id = ? and DATE(item_advances.data_vencimento) = ? and clientes.cidade = ?", current_user.empresa_id, Date.today.to_s, params[:id]).order('advances.data, advances.uuid')
+    #@item_advances = ItemAdvance.includes(:advance, :cliente).where("item_advances.empresa_id = ? and DATE(item_advances.data_vencimento) = ? and clientes.cidade = ?", current_user.empresa_id, Date.today.to_s, params[:id]).order('advances.data, advances.uuid')
+    @item_advances = ItemAdvance.includes(:advance, :cliente).where("item_advances.empresa_id = ? and DATE(item_advances.data_vencimento) = ? and clientes.cidade = ?", current_user.empresa_id, Date.today.to_s, params[:id]).order(order_by(current_user.empresa_id))
     respond_with(@item_advances) do |format|
       format.html { render :layout => !request.xhr? }
     end

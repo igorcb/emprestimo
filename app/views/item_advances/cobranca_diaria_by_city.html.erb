@@ -16,8 +16,9 @@
 	<tbody>
 		<% @item_advances.each do |item| %>
 		<tr>
-			<td><%= item.advance.data.to_s %></td>
-			<td><%= item.cliente.nome %></td>
+			<td><%= link_to item.advance.data.to_s, advance_path(item.advance.id) %></td>
+			<%#= link_to advance.id, advance_path(advance.id) %>
+			<td><%= link_to item.cliente.nome, advance_path(item.advance.id) %></td>
 			<td><%= item.parcela %></td>
 			<td><%= item.valor.to_f %></td>
 			<td><%= item.valor_pago.to_f %></td>
