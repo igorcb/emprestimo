@@ -14,6 +14,11 @@ class User < ActiveRecord::Base
     COBRADOR = 2
   end
 
+  module Ativo
+    SIM = 0
+    NAO = 1
+  end
+
   def User.new_remember_token
     SecureRandom.urlsafe_base64
   end

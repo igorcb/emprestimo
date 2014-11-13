@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-  	user = User.find_by(login: params[:session][:login].downcase)
+  	user = User.find_by(login: params[:session][:login].downcase, ativo: User::Ativo::SIM  )
     if user && user.authenticate(params[:session][:password])
       sign_in user
       if user.nivel == User::Nivel::SUPERVISOR 
